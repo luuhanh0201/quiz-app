@@ -1,0 +1,41 @@
+@import "normalize.css";
+*{
+    box-sizing: border-box;
+    user-select: none;
+  pointer-events: auto;
+}
+:root {
+    --text-black:#000;
+    --text-while: #fff;
+    --bg-default: red;
+    --radius-sm: 12px;
+    --radius-md: 24px;
+    --radius-lg: 36px;
+}
+@font-face {
+    font-family: "Font-default";
+    src: url("../assets/fonts/nunito-black-latin.woff2");
+    font-weight: 700;
+}
+@font-face {
+    font-family: "Font-light";
+    src: url("../assets/fonts/roboto-medium-latin.woff2");
+}
+button,
+input,
+[tabIndex] {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+a{
+    text-decoration: none;
+}
+html {
+    font-size: 62.5%;
+}
+body {
+    background-color: rgb(255 253 244);
+    font-family: "Font-default";
+    font-size: 1.6rem;
+}

@@ -1,0 +1,45 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.text {
+    text-align: center;
+    font-family: "Font-light";
+}
+.orther-login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        background-color: #fffae6;
+        border-radius: var(--radius-sm);
+        margin: 4px 12px;
+        padding: 8px;
+
+        span {
+            margin-left: 6px;
+        }
+    }
+}
+
+.form-footer {
+    margin: 24px 12px;
+    display: flex;
+    justify-content: space-around;
+}
+.icon-loading {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

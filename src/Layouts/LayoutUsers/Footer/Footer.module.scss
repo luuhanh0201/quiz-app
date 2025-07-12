@@ -1,0 +1,28 @@
+.footer {
+
+    min-width: 1024px;
+    margin-top: 500px;
+    border-top: 1px solid #cccccca8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px;
+}
+.logo {
+    width: 300px;
+    bottom: 0;
+}
+.contact {
+    margin-top: 12px;
+    .icon {
+        color: var(--text-black);
+        cursor: pointer;
+        font-size: 3rem;
+        margin: 0px 12px;
+
+        :hover{
+            opacity: 0.6;
+        }
+    }
+}

@@ -1,0 +1,25 @@
+.modal {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    min-width: 260px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    opacity: 0;
+
+    &.success {
+        background-color: #4caf50;
+    }   
+
+    &.error {
+        background-color: #f44336;
+    }
+
+    &.warning {
+        background-color: #ff9800;
+    }
+}

@@ -1,0 +1,33 @@
+.wrapper {
+    padding: 0px 12px;
+    display: flex;
+    flex-direction: column;
+    .label {
+        padding: 8px 4px;
+        display: flex;
+        .icon {
+            margin-left: 8px;
+            cursor: pointer;
+        }
+    }
+    .input {
+    width: 100%;
+
+        font-family: "Font-light";
+        background-color: #fffae6;
+        padding: 8px;
+        border-radius: var(--radius-sm);
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05), 0 -3px 2px rgba(0, 0, 0, 0.1);
+        &:hover,
+        &:focus {
+            background: #f8f5ec;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05), 0 -3px 2px rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+    }
+    .error{
+        color: rgba(255, 0, 0, 0.651);
+        font-size: 1.4rem;
+        padding-left: 3px;
+    }
+}

@@ -1,0 +1,15 @@
+.wrapper {
+    padding: 12px;
+    .btn-submit {
+        width: 100%;
+        color: var(--text-while);
+        padding: 12px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        background-color: #62c571;
+        &:disabled {
+            opacity: 0.5;
+            cursor: no-drop;
+        }
+    }
+}
