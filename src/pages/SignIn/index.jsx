@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import logoGoogle from "@/assets/logoGoogle.svg";
 import logoFacebook from "@/assets/logoFacebook.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { apiUrl } from "@/assets/db";
 import InputGroup from "@/components/Form/InputGroup";
@@ -13,6 +13,7 @@ import WrapperForm from "@/components/Form/WrapperForm";
 import Button from "@/components/Form/Button";
 import Joi from "joi-browser";
 import { alertSuccess } from "@/components/NotificationModal";
+import { schemaSignInForm } from "@/validates";
 const cx = classNames.bind(styles);
 function SignIn() {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -20,13 +21,7 @@ function SignIn() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
-
-    // const [profileUser, setProfiltUser] = useState();
-    const schema = Joi.object().keys({
-        username: Joi.string().required().label("username"),
-        password: Joi.string().required().label("password"),
-    });
-
+    const nav = useNavigate();
     const handleValidationiErrors = (error) => {
         if (error) {
             const errorMessages = {};
@@ -43,7 +38,7 @@ function SignIn() {
         e.preventDefault();
         setIsLoading(true);
         const payload = { username, password };
-        const { error } = Joi.validate(payload, schema, { abortEarly: false });
+        const { error } = Joi.validate(payload, schemaSignInForm, { abortEarly: false });
         if (error) {
             handleValidationiErrors(error);
             setIsLoading(false);
@@ -53,7 +48,10 @@ function SignIn() {
         axios
             .post(apiUrl + "/auths/signin", payload)
             .then((res) => {
-                alertSuccess(res.data.message);
+                const toGome = setTimeout(() => {
+                    nav("/");
+                }, 2000);
+                alertSuccess(res.data.mess, toGome);
             })
             .catch((error) => {
                 setErrors({ username: error.response.data.message });
@@ -71,7 +69,7 @@ function SignIn() {
                     placeholder={"Enter username"}
                     onChange={(e) => setUsername(e.target.value)}
                     autoComplete={"current-password"}
-                    error={errors.username}
+                    error={errors?.username}
                 />
                 <InputGroup
                     label={"Password"}

@@ -11,6 +11,7 @@ import axios from "axios";
 import { apiUrl } from "@/assets/db";
 import { alertSuccess } from "@/components/NotificationModal";
 import { Link, useNavigate } from "react-router-dom";
+import { schemaSignUp } from "@/validates";
 
 const cx = classNames.bind(styles);
 
@@ -24,14 +25,7 @@ function SignUp() {
         confirmPassword: "",
     });
     const navigate = useNavigate();
-    const schema = Joi.object().keys({
-        username: Joi.string().min(8).required().label("username"),
-        email: Joi.string().email().required().label("email"),
-        password: Joi.string().min(8).required().label("Password"),
-        confirmPassword: Joi.string().valid(Joi.ref("password")).required().label("Confirm password"),
-    });
-
-    const handleValidationiErrors = (error) => {
+    const handleValidationErrors = (error) => {
         if (error) {
             const errorMessages = {};
             error.details.forEach((err) => {
@@ -46,27 +40,30 @@ function SignUp() {
     const handleOnSubmitForm = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        const { error } = Joi.validate(formData, schema, { abortEarly: false });
+        const { error } = Joi.validate(formData, schemaSignUp, { abortEarly: false });
         if (error) {
-            handleValidationiErrors(error);
+            handleValidationErrors(error);
             setIsLoading(false);
             return;
         }
         setErrors({});
-        axios
-            .post(apiUrl + "/auths/signup", formData)
-            .then((res) => {
-                const toSignIn = setTimeout(() => {
-                    navigate("/signin");
-                }, 2000);
-                alertSuccess(res.data.mess, toSignIn);
-            })
-            .catch((err) => {
-                setErrors(err.response.data.message);
-            })
-            .finally(() => {
-                setIsLoading(false);
+        try {
+            const res = await axios.post(apiUrl + "/auths/signup", {
+                ...formData,
+                avatar: null,
             });
+
+            alertSuccess(res.data.mess, () => navigate("/signin"));
+        } catch (err) {
+            const resErr = err.response?.data;
+            if (typeof resErr?.message === "object") {
+                setErrors(resErr.message); // lỗi theo từng field
+            } else {
+                setErrors({ server: resErr?.mess || "Something went wrong." });
+            }
+        } finally {
+            setIsLoading(false);
+        }
     };
     return (
         <div className={cx("wrapper")}>
@@ -78,16 +75,16 @@ function SignUp() {
                     label={"Username"}
                     type="text"
                     placeholder={"Enter username"}
-                    error={errors.username}
+                    error={errors?.username}
                 />
                 <InputGroup
                     onChange={(e) => {
-                        setFormData((prev) => ({ ...prev, email: e.target.value }));
+                        setFormData((prev) => ({ ...prev, email: e.target.value.trim().toLowerCase() }));
                     }}
                     label={"Email"}
                     type="text"
                     placeholder={"Enter email"}
-                    error={errors.email}
+                    error={errors?.email}
                 />
                 <InputGroup
                     onChange={(e) => {
@@ -95,7 +92,7 @@ function SignUp() {
                     }}
                     label={"Password"}
                     placeholder={"Enter password"}
-                    error={errors.password}
+                    error={errors?.password}
                     autoComplete={"current-password"}
                 />
                 <InputGroup
@@ -104,7 +101,7 @@ function SignUp() {
                     }}
                     label={"Confirm password"}
                     placeholder={"Confirm password"}
-                    error={errors.confirmPassword}
+                    error={errors?.confirmPassword}
                     autoComplete={"current-password"}
                 />
                 <p className={cx("footer-form")}>

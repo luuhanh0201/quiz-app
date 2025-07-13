@@ -3,11 +3,10 @@ import styles from "./Footer.module.scss";
 import logo from "@/assets/logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faGithub, faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { Link } from "react-router-dom";
 const cx = classNames.bind(styles);
 function Footer() {
     return (
-        <footer class={cx("footer")}>
+        <footer className={cx("footer")}>
             <img className={cx("logo")} src={logo} />
             <div className={cx("contact")}>
                 <a href={"https://www.facebook.com/ldh211"} target="_blank">
