@@ -2,22 +2,34 @@
     padding: 0px 12px;
     display: flex;
     flex-direction: column;
+
     .label {
         padding: 8px 4px;
         display: flex;
+
         .icon {
             margin-left: 8px;
             cursor: pointer;
         }
     }
-    .input {
-    width: 100%;
 
+    .input {
+        width: 100%;
         font-family: "Font-light";
         background-color: #fffae6;
         padding: 8px;
         border-radius: var(--radius-sm);
         box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05), 0 -3px 2px rgba(0, 0, 0, 0.1);
+        margin-bottom: 16px;
+
+        &:disabled {
+            background-color: #f0f0f0;
+            color: #999;
+            cursor: no-drop;
+            opacity: 0.6;
+
+        }
+
         &:hover,
         &:focus {
             background: #f8f5ec;
@@ -25,7 +37,8 @@
             color: #333;
         }
     }
-    .error{
+
+    .error {
         color: rgba(255, 0, 0, 0.651);
         font-size: 1.4rem;
         padding-left: 3px;

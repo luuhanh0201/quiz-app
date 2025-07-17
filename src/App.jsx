@@ -1,21 +1,21 @@
-import { Route, Routes } from "react-router-dom";
-import { Fragment } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { publicRoutes } from "./routes";
 import LayoutUsers from "./Layouts/LayoutUsers";
 
-
 function App() {
     return (
-        <Fragment>
+        <BrowserRouter>
             <Routes>
                 {publicRoutes.map((route, index) => {
                     const Page = route.component;
                     let Layout = LayoutUsers;
+
                     if (route.layout) {
                         Layout = route.layout;
-                    } else {
-                        return <div>Để xử lý sau</div>;
+                    } else if (route.layout === null) {
+                        Layout = ({ children }) => <>{children}</>;
                     }
+
                     return (
                         <Route
                             key={index}
@@ -25,11 +25,23 @@ function App() {
                                     <Page />
                                 </Layout>
                             }
-                        />
+                        >
+                            {route.children && route.children.map((child, childIndex) => {
+                                const ChildPage = child.component;
+                                return (
+                                    <Route
+                                        key={`${index}`}
+                                        index={child.index}
+                                        path={child.path}
+                                        element={<ChildPage />}
+                                    />
+                                );
+                            })}
+                        </Route>
                     );
                 })}
             </Routes>
-        </Fragment>
+        </BrowserRouter>
     );
 }
 

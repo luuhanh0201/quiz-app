@@ -15,12 +15,17 @@ function InputGroup({
     onChange,
     onClick,
     autoComplete,
+    style,
+    styleLabel,
+    id,
+    src,
+    disabled = false,
     ...rest
 }) {
     const classes = cx("wrapper", className);
     return (
         <div className={classes} {...rest}>
-            <label className={cx("label")}>
+            <label style={styleLabel} htmlFor={id} className={cx("label")}>
                 {label}
                 {rightIcon && (
                     <span className={cx("icon")} onClick={onClick}>
@@ -29,13 +34,16 @@ function InputGroup({
                 )}
             </label>
             <input
+                src={src}
+                id={id}
+                style={style}
                 className={cx("input")}
                 type={type}
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
                 autoComplete={autoComplete}
-            />
+                disabled={disabled} />
             <p className={cx("error")}>{error}</p>
         </div>
     );

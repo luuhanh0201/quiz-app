@@ -1,0 +1,57 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border: 3px solid;
+    border-radius: var(--radius-full);
+    background-color: #ccc;
+    margin-bottom: 12px;
+    align-self: center;
+}
+
+.upload-button {
+    width: 200px;
+    background-color: #00addc;
+    color: #fff;
+    padding: 10px 222px;
+    border: none;
+    border-radius: 999px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    margin-bottom: 36px;
+    align-self: center;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #009ac2;
+    }
+}
+
+.input {}
+
+.button {
+    font-size: 2rem;
+
+    button {
+        border: 3px solid #000;
+    }
+
+    width: 200px;
+    align-self: center;
+
+}

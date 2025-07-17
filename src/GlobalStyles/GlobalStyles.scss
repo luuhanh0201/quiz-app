@@ -1,26 +1,34 @@
 @import "normalize.css";
-*{
+
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     user-select: none;
-  pointer-events: auto;
+    pointer-events: auto;
 }
+
 :root {
-    --text-black:#000;
+    --text-black: #000;
     --text-while: #fff;
     --bg-default: red;
     --radius-sm: 12px;
     --radius-md: 24px;
     --radius-lg: 36px;
+    --radius-full: 999px;
 }
+
 @font-face {
     font-family: "Font-default";
     src: url("../assets/fonts/nunito-black-latin.woff2");
     font-weight: 700;
 }
+
 @font-face {
     font-family: "Font-light";
     src: url("../assets/fonts/roboto-medium-latin.woff2");
 }
+
 button,
 input,
 [tabIndex] {
@@ -28,14 +36,30 @@ input,
     border: none;
     background-color: transparent;
 }
-a{
+
+a {
     text-decoration: none;
 }
+
 html {
     font-size: 62.5%;
 }
+
 body {
     background-color: rgb(255 253 244);
     font-family: "Font-default";
     font-size: 1.6rem;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    object-fit: cover;
 }

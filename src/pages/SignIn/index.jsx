@@ -45,20 +45,25 @@ function SignIn() {
             return;
         }
         setErrors({});
-        axios
-            .post(apiUrl + "/auths/signin", payload)
-            .then((res) => {
-                const toGome = setTimeout(() => {
-                    nav("/");
-                }, 2000);
-                alertSuccess(res.data.mess, toGome);
-            })
-            .catch((error) => {
-                setErrors({ username: error.response.data.message });
-            })
-            .finally(() => {
-                setIsLoading(false);
+        try {
+            const res = await axios.post(apiUrl + "/auths/signin", payload);
+            const toHome = setTimeout(() => {
+                nav("/");
+            }, 2000);
+            alertSuccess(res.data.mess, toHome);
+            const user = res.data.user;
+            const token = res.data.token;
+            
+            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("token", JSON.stringify(token));
+            console.log(user)
+        } catch (error) {
+            setErrors({
+                username: error.response.data.message,
             });
+        } finally {
+            setIsLoading(false);
+        }
     };
     return (
         <div className={cx("wrapper")}>
