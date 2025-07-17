@@ -22,7 +22,7 @@ function SignIn() {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
     const nav = useNavigate();
-    const handleValidationiErrors = (error) => {
+    const handleValidationErrors = (error) => {
         if (error) {
             const errorMessages = {};
             error.details.forEach((err) => {
@@ -40,7 +40,7 @@ function SignIn() {
         const payload = { username, password };
         const { error } = Joi.validate(payload, schemaSignInForm, { abortEarly: false });
         if (error) {
-            handleValidationiErrors(error);
+            handleValidationErrors(error);
             setIsLoading(false);
             return;
         }
@@ -53,7 +53,7 @@ function SignIn() {
             alertSuccess(res.data.mess, toHome);
             const user = res.data.user;
             const token = res.data.token;
-            
+            user.avatar = import.meta.env.VITE_HOST + user.avatar
             localStorage.setItem("user", JSON.stringify(user));
             localStorage.setItem("token", JSON.stringify(token));
             console.log(user)
@@ -91,7 +91,7 @@ function SignIn() {
                     {isLoading ? <FontAwesomeIcon className={cx("icon-loading")} icon={faSpinner} /> : "Sign in"}
                 </Button>
                 <p className={cx("text")}> or</p>
-                <div className={cx("orther-login")}>
+                <div className={cx("other-login")}>
                     <button>
                         <img width={35} src={logoGoogle} /> <span>Continue with Google</span>
                     </button>

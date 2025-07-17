@@ -19,7 +19,6 @@ function Header() {
         } else {
             setIsUser(false);
         }
-        console.log("header", token)
 
     }, [isUser]);
     return (
@@ -30,7 +29,7 @@ function Header() {
                 </Link>
 
                 <div className={cx("input-search")}>
-                    <p className={cx("lable")}>Join room: </p>
+                    <p className={cx("label")}>Join room: </p>
                     <input
                         className={cx("input")}
                         type="text"
