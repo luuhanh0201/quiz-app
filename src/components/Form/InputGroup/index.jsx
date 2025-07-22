@@ -20,9 +20,16 @@ function InputGroup({
     id,
     src,
     disabled = false,
+    rows,
     ...rest
 }) {
     const classes = cx("wrapper", className);
+    let Comp = "input"
+    if (type === "textarea") {
+        Comp = "textarea"
+    } else {
+        Comp = "input"
+    }
     return (
         <div className={classes} {...rest}>
             <label style={styleLabel} htmlFor={id} className={cx("label")}>
@@ -33,7 +40,7 @@ function InputGroup({
                     </span>
                 )}
             </label>
-            <input
+            <Comp
                 src={src}
                 id={id}
                 style={style}
@@ -43,7 +50,8 @@ function InputGroup({
                 value={value}
                 onChange={onChange}
                 autoComplete={autoComplete}
-                disabled={disabled} />
+                disabled={disabled}
+                rows={rows} />
             <p className={cx("error")}>{error}</p>
         </div>
     );

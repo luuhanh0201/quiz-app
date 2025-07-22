@@ -1,12 +1,23 @@
 .wrapper {
     padding: 12px;
+
     .btn-submit {
-        width: 100%;
-        color: var(--text-while);
-        padding: 12px;
+        background-color: #2ecbd1;
+        color: #fffde6;
+        font-weight: bold;
+        border: none;
+        padding: 10px 24px;
         border-radius: var(--radius-sm);
+        font-size: 16px;
+        box-shadow: 0 2px 0 #168a8f;
         cursor: pointer;
-        background-color: #62c571;
+        transition: all 0.2s ease;
+
+        &:active {
+            box-shadow: 0 1px 0 #168a8f;
+            transform: translateY(2px);
+        }
+
         &:disabled {
             opacity: 0.5;
             cursor: no-drop;
