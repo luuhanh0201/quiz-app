@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./SettingProfile.module.scss";
-import { useOutletContext } from "react-router-dom";
+import { Navigate, useNavigate, useOutletContext } from "react-router-dom";
 import Image from "@/components/Image";
 import Button from "@/components/Form/Button";
 import WrapperForm from "@/components/Form/WrapperForm";
@@ -9,23 +9,25 @@ import { useState, useEffect } from "react";
 import images from "@/assets/images";
 import axios from "axios";
 import { alertSuccess } from "@/components/NotificationModal";
+import { useAuth } from "@/contexts/authContext";
 
 const cx = classNames.bind(styles);
 
 function SettingProfile() {
-    const { profile, setProfile, HOST } = useOutletContext() || {};
-
+    const navigate = useNavigate()
+    const { HOST } = useOutletContext() || {};
+    let { setUser, user, logout } = useAuth();
     const [updateProfile, setUpdateProfile] = useState({
-        username: profile.username,
-        email: profile.email,
-        avatar: profile.avatar
+        username: user.username,
+        email: user.email,
+        avatar: user.avatar
     })
     useEffect(() => {
-        if (profile.username) {
+        if (user.username) {
             setUpdateProfile({
-                username: profile.username,
-                email: profile.email,
-                avatar: profile.avatar,
+                username: user.username,
+                email: user.email,
+                avatar: user.avatar,
             });
         }
 
@@ -34,7 +36,7 @@ function SettingProfile() {
                 URL.revokeObjectURL(updateProfile.avatar);
             }
         }
-    }, [profile]);
+    }, [user]);
 
     const handleUploadImage = (e) => {
         const file = e.target.files?.[0];
@@ -45,7 +47,7 @@ function SettingProfile() {
 
     const handleSubmitForm = async (e) => {
         e.preventDefault();
-        const urlUpdateUser = import.meta.env.VITE_UPDATE_PROFILE + profile.userId;
+        const urlUpdateUser = import.meta.env.VITE_UPDATE_PROFILE + user.userId;
         const formData = new FormData();
         formData.append("username", updateProfile.username);
         if (updateProfile.avatarFile instanceof File) {
@@ -60,7 +62,7 @@ function SettingProfile() {
             });
             const { newProfile } = res.data;
             const fullAvatarUrl = `${HOST}${newProfile.avatar}`;
-            setProfile((prev) => ({
+            setUser((prev) => ({
                 ...prev,
                 username: newProfile.username,
                 email: newProfile.email,
@@ -74,24 +76,30 @@ function SettingProfile() {
                 ...newProfile,
                 avatar: fullAvatarUrl
             }));
+
+            setUser({
+                ...newProfile,
+                avatar: fullAvatarUrl,
+            });
             await alertSuccess("successfully", 1000)
-            await window.location.reload();
+
         } catch (err) {
             console.error(err);
         }
     };
 
+
+    const handleLogout = () => {
+        logout()
+        navigate("/")
+    }
     return (
         <div className={cx("wrapper")}>
             <WrapperForm onSubmit={handleSubmitForm} className={cx("form")}>
                 <Image
                     className={cx("avatar")}
-                    src={
-                        updateProfile.avatar?.startsWith("blob:")
-                            ? updateProfile.avatar
-                            : HOST + updateProfile.avatar
-                    }
-                    fallback={images.noAvatar}
+                    src={updateProfile?.avatar}
+                    fallback={images?.noAvatar}
                 />
                 <InputGroup
                     onChange={handleUploadImage}
@@ -121,7 +129,10 @@ function SettingProfile() {
                     disabled={true}
                 />
 
-                <Button className={cx("button")}>Save</Button>
+                <div className={cx("button-group")}>
+                    <Button className={cx("button")}>Save</Button>
+                    <Button type="button" onClick={handleLogout} className={cx("button-logout")}>Logout</Button>
+                </div>
             </WrapperForm>
         </div>
     );

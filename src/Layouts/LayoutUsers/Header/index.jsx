@@ -5,22 +5,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Image from "@/components/Image";
-import { useEffect, useState } from "react";
+
+import { useAuth } from "@/contexts/authContext";
 const cx = classNames.bind(styles);
 function Header() {
-    const [isUser, setIsUser] = useState(false);
-    const [user, setUser] = useState({})
-    useEffect(() => {
-        const token = JSON.parse(localStorage.getItem("token"));
-        if (token) {
-            setIsUser(true);
-            const user = JSON.parse(localStorage.getItem("user"))
-            setUser(user)
-        } else {
-            setIsUser(false);
-        }
-
-    }, [isUser]);
+    const { user } = useAuth()
     return (
         <div className={cx("wrapper")}>
             <div className={cx("container")}>
@@ -44,7 +33,7 @@ function Header() {
 
                 <div className={cx("action-btn")}>
                     <div>
-                        {isUser ? (
+                        {user ? (
                             <div className={cx("user-toolbar")}>
                                 <div className={cx("search-wrapper")}>
                                     <input className={cx("search-input")} type="text" placeholder="Search quiz..." />

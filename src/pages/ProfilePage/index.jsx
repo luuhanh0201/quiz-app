@@ -5,12 +5,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { apiGetProfile } from "@/assets/db";
 import { NavLink, Outlet } from "react-router-dom";
+import { useAuth } from "@/contexts/authContext";
 
 const cx = classNames.bind(styles);
 
 function ProfilePage() {
     const HOST = import.meta.env.VITE_HOST
-    const [profile, setProfile] = useState({});
+    const { user } = useAuth()
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem("token"));
         axios
@@ -25,14 +26,14 @@ function ProfilePage() {
             .catch((error) => {
                 console.log("ERROR: ", error);
             });
-        }, []);
-      
+    }, []);
+
     return (
         <div className={cx("wrapper")}>
             <div className={cx("header-profile")}>
                 <div className={cx("title-profile")}>
-                    <Image className={cx("avatar-profile")} src={HOST+profile.avatar} />
-                    <h3 className={cx("")}>{profile.username}</h3>
+                    <Image className={cx("avatar-profile")} src={user?.avatar} />
+                    <h3 className={cx("")}>{user?.username}</h3>
                 </div>
                 <nav className={cx("menu-profile")}>
                     <NavLink
@@ -50,8 +51,8 @@ function ProfilePage() {
                     </NavLink>
                 </nav>
             </div>
-            {profile.username ? (
-                <Outlet context={{ profile, setProfile,HOST }} />
+            {user?.username ? (
+                <Outlet context={{ HOST }} />
             ) : (
                 <div></div>
             )}

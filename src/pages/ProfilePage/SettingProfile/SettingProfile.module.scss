@@ -2,10 +2,15 @@
     display: flex;
     justify-content: center;
     margin-top: 12px;
+    width: 600px;
+    margin: 0px auto;
+
 }
 
 .form {
+    margin-top: 12px;
     display: flex;
+    background-color: rgba(197, 193, 193, 0.356);
     flex-direction: column;
     // align-items: center;
 }
@@ -28,30 +33,47 @@
     border: none;
     border-radius: 999px;
     font-weight: bold;
-    cursor: pointer;
     font-size: 16px;
     display: block;
     transition: background-color 0.2s;
-    cursor: pointer;
     margin-bottom: 36px;
     align-self: center;
 
     &:hover {
-        cursor: pointer;
+        label {
+            cursor: pointer;
+        }
+
         background-color: #009ac2;
     }
 }
 
-.input {}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+   
+}
 
 .button {
-    font-size: 2rem;
+    background-color: #00c8ff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    
+}
 
-    button {
-        border: 3px solid #000;
-    }
-
-    width: 200px;
-    align-self: center;
-
+.button-logout {
+    background-color: #f87171;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
 }
