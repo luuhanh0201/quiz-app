@@ -46,13 +46,12 @@ function SettingProfile() {
     const handleSubmitForm = async (e) => {
         e.preventDefault();
         const urlUpdateUser = import.meta.env.VITE_UPDATE_PROFILE + profile.userId;
-
         const formData = new FormData();
         formData.append("username", updateProfile.username);
         if (updateProfile.avatarFile instanceof File) {
             formData.append("avatar", updateProfile.avatarFile);
         }
-
+        console.log(formData)
         try {
             const res = await axios.put(urlUpdateUser, formData, {
                 headers: {

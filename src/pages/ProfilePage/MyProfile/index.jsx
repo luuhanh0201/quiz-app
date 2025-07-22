@@ -24,7 +24,7 @@ function MyProfile() {
                 </ul>
                 <div className={cx("list-quiz", "grid-5")}>
                     <div className={cx("button-create-quiz")}>
-                        <Link className={cx("button")}>Create Quiz</Link>
+                        <Link to={"/create-quizzes"} className={cx("button")}>Create Quiz</Link>
                     </div>
                     <div className={cx("quiz-item")}>
                         <Image className={cx("image-item")} src={profile.avatar || images.noImage} />
