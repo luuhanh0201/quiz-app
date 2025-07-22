@@ -5,12 +5,11 @@ import { forwardRef, useImperativeHandle, useState } from "react";
 import InputGroup from "@/components/Form/InputGroup";
 import Image from "@/components/Image";
 import axios from "axios";
-import useAuthCheck from "@/contexts/authProvider";
+import { useAuthCheck } from "@/contexts/authContext";
 
 const cx = classNames.bind(styles);
 
 const CreateQuiz = forwardRef((props, ref) => {
-    useAuthCheck();
     const [isPrivate, setIsPrivate] = useState(true);
     const [formData, setFormData] = useState({
         title: "",

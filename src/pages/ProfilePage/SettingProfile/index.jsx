@@ -24,10 +24,13 @@ function SettingProfile() {
     })
     useEffect(() => {
         if (user.username) {
+            const fullAvatar = user.avatar?.startsWith("http")
+                ? user.avatar
+                : `${HOST}${user.avatar}`;
             setUpdateProfile({
                 username: user.username,
                 email: user.email,
-                avatar: user.avatar,
+                avatar: fullAvatar,
             });
         }
 
@@ -77,10 +80,7 @@ function SettingProfile() {
                 avatar: fullAvatarUrl
             }));
 
-            setUser({
-                ...newProfile,
-                avatar: fullAvatarUrl,
-            });
+    
             await alertSuccess("successfully", 1000)
 
         } catch (err) {
@@ -98,8 +98,8 @@ function SettingProfile() {
             <WrapperForm onSubmit={handleSubmitForm} className={cx("form")}>
                 <Image
                     className={cx("avatar")}
-                    src={updateProfile?.avatar}
-                    fallback={images?.noAvatar}
+                    src={updateProfile.avatar}
+                    fallback={images.noAvatar}
                 />
                 <InputGroup
                     onChange={handleUploadImage}

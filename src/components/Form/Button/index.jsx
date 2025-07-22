@@ -3,14 +3,12 @@ import styles from "./Button.module.scss";
 
 function Button({ className, children, type = "submit", onClick, ...rest }) {
     const cx = classNames.bind(styles);
-    const classes = cx("wrapper", className);
+    const classes = cx("btn-submit", className);
 
     return (
-        <div className={classes} {...rest}>
-            <button className={cx("btn-submit")} type={type} disabled={false} onClick={onClick}>
-                {children}
-            </button>
-        </div>
+        <button className={classes} type={type} disabled={false} onClick={onClick}>
+            {children}
+        </button>
     );
 }
 

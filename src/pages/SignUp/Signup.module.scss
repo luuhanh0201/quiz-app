@@ -1,10 +1,25 @@
 .wrapper {
+    max-width: 600px;
+    margin: 32px auto;
+    background-color: #e5e3db;
+    padding: 32px 24px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(230, 196, 196, 0.08);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+    animation: fadeIn 0.3s ease-in;
 }
-.footer-form{
+
+.wrapper-button {
+    width: 95%;
+    padding: 12px 0px;
+    margin: 12px 0;
+}
+
+.footer-form {
+    margin: 12px 0;
     text-align: center;
 }
-
-
-

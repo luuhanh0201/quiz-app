@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Image from "@/components/Image";
-
 import { useAuth } from "@/contexts/authContext";
+import images from "@/assets/images";
 const cx = classNames.bind(styles);
 function Header() {
     const { user } = useAuth()
@@ -40,7 +40,11 @@ function Header() {
                                     <FontAwesomeIcon className={cx("icon-search")} icon={faMagnifyingGlass} />
                                 </div>
                                 <Link className={cx("avatar-user")} to={"/profile/me"}>
-                                    <Image className={cx("avatar-user")} src={user.avatar} />
+                                    <Image
+                                        className={cx("avatar-user")}
+                                        src={user.avatar?.startsWith("http") ? user.avatar : `${import.meta.env.VITE_HOST}${user.avatar}`}
+                                        fallback={images.noAvatar}
+                                    />
                                 </Link>
                             </div>
                         ) : (

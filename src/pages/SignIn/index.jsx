@@ -14,6 +14,7 @@ import Button from "@/components/Form/Button";
 import Joi from "joi-browser";
 import { alertSuccess } from "@/components/NotificationModal";
 import { schemaSignInForm } from "@/validates";
+import { useAuth } from "@/contexts/authContext";
 const cx = classNames.bind(styles);
 function SignIn() {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -22,6 +23,7 @@ function SignIn() {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
     const nav = useNavigate();
+    const { signin } = useAuth()
     const handleValidationErrors = (error) => {
         if (error) {
             const errorMessages = {};
@@ -46,7 +48,7 @@ function SignIn() {
         }
         setErrors({});
         try {
-            const res = await axios.post(apiUrl + "/auths/signin", payload);
+            const res = await axios.post(import.meta.env.VITE_LOGIN, payload);
             const toHome = setTimeout(() => {
                 nav("/");
             }, 2000);
@@ -54,10 +56,10 @@ function SignIn() {
             const user = res.data.user;
             const token = res.data.token;
             user.avatar = import.meta.env.VITE_HOST + user.avatar
-            localStorage.setItem("user", JSON.stringify(user));
-            localStorage.setItem("token", JSON.stringify(token));
-            console.log(user)
+            signin(user, token)
+          
         } catch (error) {
+            console.log(error)
             setErrors({
                 username: error.response.data.message,
             });
@@ -67,7 +69,7 @@ function SignIn() {
     };
     return (
         <div className={cx("wrapper")}>
-            <WrapperForm title={"Sign up"} onSubmit={handleOnSubmitForm} method="post">
+            <WrapperForm title={"Sign in"} onSubmit={handleOnSubmitForm} method="post" className={"form"}>
                 <InputGroup
                     label={"Username"}
                     type="text"

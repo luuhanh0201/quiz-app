@@ -11,3 +11,8 @@ export const schemaSignUp = Joi.object().keys({
     password: Joi.string().min(8).required().label("Password"),
     confirmPassword: Joi.string().valid(Joi.ref("password")).required().label("Confirm password"),
 });
+
+export const schemaQuizzes = Joi.object().keys({
+    title: Joi.string().max(50).required().label("title"),
+    description: Joi.string().max(200).label("email"),
+})

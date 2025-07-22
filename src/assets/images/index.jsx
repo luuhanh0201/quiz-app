@@ -3,5 +3,6 @@ import noImage from "@/assets/images/no-img.jpg";
 const images = {
     noAvatar,
     noImage,
+
 };
 export default images;
