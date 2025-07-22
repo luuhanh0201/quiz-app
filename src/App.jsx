@@ -10,10 +10,10 @@ function App() {
                     const Page = route.component;
                     let Layout = LayoutUsers;
 
-                    if (route.layout) {
-                        Layout = route.layout;
-                    } else if (route.layout === null) {
+                    if (route.layout === null) {
                         Layout = ({ children }) => <>{children}</>;
+                    } else if (route.layout) {
+                        Layout = route.layout;
                     }
 
                     return (
@@ -21,9 +21,13 @@ function App() {
                             key={index}
                             path={route.path}
                             element={
-                                <Layout>
-                                    <Page />
-                                </Layout>
+                                route.useRefLayout ? (
+                                    <Layout>{(ref) => <Page ref={ref} />}</Layout>
+                                ) : (
+                                    <Layout>
+                                        <Page />
+                                    </Layout>
+                                )
                             }
                         >
                             {route.children && route.children.map((child, childIndex) => {

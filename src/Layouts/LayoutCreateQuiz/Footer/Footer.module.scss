@@ -1,0 +1,24 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 16px;
+    background-color: #23656b;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 60px;
+}
+
+.add-slide-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .add-slide-text {
+        color: #fffde6;
+        font-weight: bold;
+        font-size: 15px;
+    }
+}
