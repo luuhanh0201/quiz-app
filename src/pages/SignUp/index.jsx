@@ -8,7 +8,6 @@ import WrapperForm from "@/components/Form/WrapperForm";
 import InputGroup from "@/components/Form/InputGroup";
 import Button from "@/components/Form/Button";
 import axios from "axios";
-import { apiUrl } from "@/assets/db";
 import { alertSuccess } from "@/components/NotificationModal";
 import { Link, useNavigate } from "react-router-dom";
 import { schemaSignUp } from "@/validates";
@@ -48,7 +47,7 @@ function SignUp() {
         }
         setErrors({});
         try {
-            const res = await axios.post(apiUrl + "/auths/signup", {
+            const res = await axios.post(import.meta.env.VITE_SIGNIN, {
                 ...formData,
                 avatar: null,
             });
@@ -57,7 +56,7 @@ function SignUp() {
         } catch (err) {
             const resErr = err.response?.data;
             if (typeof resErr?.message === "object") {
-                setErrors(resErr.message); // lỗi theo từng field
+                setErrors(resErr.message); 
             } else {
                 setErrors({ server: resErr?.mess || "Something went wrong." });
             }

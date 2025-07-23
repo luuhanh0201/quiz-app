@@ -48,7 +48,7 @@ function SignIn() {
         }
         setErrors({});
         try {
-            const res = await axios.post(import.meta.env.VITE_LOGIN, payload);
+            const res = await axios.post(import.meta.env.VITE_SIGNIN, payload);
             const toHome = setTimeout(() => {
                 nav("/");
             }, 2000);
