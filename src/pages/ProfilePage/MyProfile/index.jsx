@@ -29,7 +29,6 @@ function MyProfile() {
     }, [])
     console.log(quizzes)
     const ItemQuizzes = quizzes.map((item) => {
-        console.log(item)
         return (
             <div key={item.id} className={cx("quiz-item")}>
                 <Image className={cx("image-item")} src={

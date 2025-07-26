@@ -51,6 +51,14 @@
 
             .name-quiz {
                 cursor: pointer;
+                max-width: 100%;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding-right: 2px;
+                padding-top: 2px;
             }
 
             p {
@@ -70,10 +78,11 @@
         }
     }
 }
-
-
 .grid-5 {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 12px;
 }
+
+
+

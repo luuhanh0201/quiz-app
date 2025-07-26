@@ -56,7 +56,6 @@ function SettingProfile() {
         if (updateProfile.avatarFile instanceof File) {
             formData.append("avatar", updateProfile.avatarFile);
         }
-        console.log(formData)
         try {
             const res = await axios.put(urlUpdateUser, formData, {
                 headers: {

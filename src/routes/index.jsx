@@ -8,6 +8,7 @@ import SettingProfile from "@/pages/ProfilePage/SettingProfile";
 import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
 import CreateQuiz from "@/pages/CreateQuiz";
+import DetailQuiz from "@/pages/DetailQuizPage";
 
 export const publicRoutes = [
     {
@@ -21,6 +22,11 @@ export const publicRoutes = [
         layout: LayoutCreateQuizzes,
         useRefLayout: true,
         isCheckAuth: true
+    },
+    {
+        path: "/quizzes/detail-quiz/:id",
+        component: DetailQuiz,
+        layout: LayoutUsers,
     },
     {
         path: "/signin",

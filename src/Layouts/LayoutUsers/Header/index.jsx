@@ -7,11 +7,21 @@ import { Link } from "react-router-dom";
 import Image from "@/components/Image";
 import { useAuth } from "@/contexts/authContext";
 import images from "@/assets/images";
+import { useEffect, useState } from "react";
 const cx = classNames.bind(styles);
 function Header() {
     const { user } = useAuth()
+    const [isSticky, setIsSticky] = useState(false);
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsSticky(window.scrollY > 100);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
     return (
-        <div className={cx("wrapper")}>
+        <div className={cx("wrapper", { sticky: isSticky })}>
             <div className={cx("container")}>
                 <Link to={"/"}>
                     <img className={cx("logo")} src={logo} />
