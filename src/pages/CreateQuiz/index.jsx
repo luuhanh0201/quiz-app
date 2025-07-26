@@ -5,6 +5,7 @@ import { forwardRef, useImperativeHandle, useState } from "react";
 import InputGroup from "@/components/Form/InputGroup";
 import Image from "@/components/Image";
 import axios from "axios";
+import imageCompression from "browser-image-compression";
 import { useAuthCheck } from "@/contexts/authContext";
 
 const cx = classNames.bind(styles);
@@ -18,11 +19,21 @@ const CreateQuiz = forwardRef((props, ref) => {
         coverImage: "",
         isPublic: true
     });
-    const handleUploadImage = (e) => {
+    const handleUploadImage = async (e) => {
         const file = e.target.files?.[0];
         if (!file) return;
-        const imgUrl = URL.createObjectURL(file);
-        setFormData((prev) => ({ ...prev, coverImage: imgUrl, coverImageFile: file }));
+        try {
+            const options = {
+                maxSize: 1,
+                maxWidthOrHeight: 1024,
+                useWebWorker: true
+            }
+            const compressedFile = await imageCompression(file, options);
+            const imgUrl = await URL.createObjectURL(compressedFile);
+            setFormData((prev) => ({ ...prev, coverImage: imgUrl, coverImageFile: compressedFile }));
+        } catch (error) {
+            console.error('upload image error:', error);
+        }
     };
 
     useImperativeHandle(ref, () => ({
@@ -32,7 +43,7 @@ const CreateQuiz = forwardRef((props, ref) => {
             formDataReq.append("description", formData.description)
             formDataReq.append("tags", formData.tags)
             formDataReq.append("isPublic", formData.isPublic)
-            if (formData.coverImageFile instanceof File) {
+            if (formData.coverImageFile) {
                 formDataReq.append("coverImage", formData.coverImageFile);
             }
             try {
@@ -42,9 +53,8 @@ const CreateQuiz = forwardRef((props, ref) => {
                         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
                     }
                 })
-                await console.log("OKE")
             } catch (error) {
-                console.log(error)
+                console.log("upload file error:", error)
             }
 
         }
