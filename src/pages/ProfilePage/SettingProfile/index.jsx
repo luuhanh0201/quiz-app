@@ -10,36 +10,20 @@ import images from "@/assets/images";
 import axios from "axios";
 import { alertSuccess } from "@/components/NotificationModal";
 import { useAuth } from "@/contexts/authContext";
+import { baseUrlAPI } from "@/assets/db";
 
 const cx = classNames.bind(styles);
 
 function SettingProfile() {
     const navigate = useNavigate()
-    const { HOST } = useOutletContext() || {};
-    let { setUser, user, logout } = useAuth();
+    const { token, setUser, user, logout } = useAuth();
     const [updateProfile, setUpdateProfile] = useState({
         username: user.username,
         email: user.email,
-        avatar: user.avatar
+        avatar: user?.avatar?.startsWith("http")
+            ? user.avatar
+            : baseUrlAPI + user.avatar
     })
-    useEffect(() => {
-        if (user.username) {
-            const fullAvatar = user.avatar?.startsWith("http")
-                ? user.avatar
-                : `${HOST}${user.avatar}`;
-            setUpdateProfile({
-                username: user.username,
-                email: user.email,
-                avatar: fullAvatar,
-            });
-        }
-
-        return () => {
-            if (updateProfile.avatar && updateProfile.avatar.startsWith('blob:')) {
-                URL.revokeObjectURL(updateProfile.avatar);
-            }
-        }
-    }, [user]);
 
     const handleUploadImage = (e) => {
         const file = e.target.files?.[0];
@@ -50,20 +34,20 @@ function SettingProfile() {
 
     const handleSubmitForm = async (e) => {
         e.preventDefault();
-        const urlUpdateUser = import.meta.env.VITE_UPDATE_PROFILE + user.userId;
         const formData = new FormData();
         formData.append("username", updateProfile.username);
         if (updateProfile.avatarFile instanceof File) {
             formData.append("avatar", updateProfile.avatarFile);
         }
         try {
-            const res = await axios.put(urlUpdateUser, formData, {
+            const res = await axios.put(`${baseUrlAPI}/users/profile-user/edit/${user.userId}`, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`
                 }
             });
             const { newProfile } = res.data;
-            const fullAvatarUrl = `${HOST}${newProfile.avatar}`;
+            const fullAvatarUrl = `${baseUrlAPI}${newProfile.avatar}`;
             setUser((prev) => ({
                 ...prev,
                 username: newProfile.username,
@@ -79,7 +63,7 @@ function SettingProfile() {
                 avatar: fullAvatarUrl
             }));
 
-    
+
             await alertSuccess("successfully", 1000)
 
         } catch (err) {

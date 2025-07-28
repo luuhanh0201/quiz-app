@@ -7,7 +7,7 @@ import logoGoogle from "@/assets/logoGoogle.svg";
 import logoFacebook from "@/assets/logoFacebook.svg";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { apiUrl } from "@/assets/db";
+import { baseUrlAPI } from "@/assets/db";
 import InputGroup from "@/components/Form/InputGroup";
 import WrapperForm from "@/components/Form/WrapperForm";
 import Button from "@/components/Form/Button";
@@ -48,16 +48,16 @@ function SignIn() {
         }
         setErrors({});
         try {
-            const res = await axios.post(import.meta.env.VITE_SIGNIN, payload);
+            const res = await axios.post(`${baseUrlAPI}/auths/signin`, payload);
             const toHome = setTimeout(() => {
                 nav("/");
             }, 2000);
             alertSuccess(res.data.mess, toHome);
             const user = res.data.user;
             const token = res.data.token;
-            user.avatar = import.meta.env.VITE_HOST + user.avatar
+            user.avatar = baseUrlAPI + user.avatar
             signin(user, token)
-          
+
         } catch (error) {
             console.log(error)
             setErrors({

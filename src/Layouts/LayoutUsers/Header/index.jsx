@@ -8,6 +8,7 @@ import Image from "@/components/Image";
 import { useAuth } from "@/contexts/authContext";
 import images from "@/assets/images";
 import { useEffect, useState } from "react";
+import { baseUrlAPI } from "@/assets/db";
 const cx = classNames.bind(styles);
 function Header() {
     const { user } = useAuth()
@@ -52,7 +53,7 @@ function Header() {
                                 <Link className={cx("avatar-user")} to={"/profile/me"}>
                                     <Image
                                         className={cx("avatar-user")}
-                                        src={user.avatar?.startsWith("http") ? user.avatar : `${import.meta.env.VITE_HOST}${user.avatar}`}
+                                        src={user.avatar?.startsWith("http") ? user.avatar : `${baseUrlAPI}${user.avatar}`}
                                         fallback={images.noAvatar}
                                     />
                                 </Link>

@@ -7,6 +7,7 @@ import Image from "@/components/Image";
 import axios from "axios";
 import imageCompression from "browser-image-compression";
 import { useAuthCheck } from "@/contexts/authContext";
+import { baseUrlAPI } from "@/assets/db";
 
 const cx = classNames.bind(styles);
 
@@ -47,7 +48,7 @@ const CreateQuiz = forwardRef((props, ref) => {
                 formDataReq.append("coverImage", formData.coverImageFile);
             }
             try {
-                await axios.post(import.meta.env.VITE_POST_QUIZZES, formDataReq, {
+                await axios.post(`${baseUrlAPI}/quizzes/create-quizzes`, formDataReq, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,

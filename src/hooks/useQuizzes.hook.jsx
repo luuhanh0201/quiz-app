@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { baseUrlAPI } from "@/assets/db";
 
 
 export default function useQuizzes() {
@@ -14,7 +15,7 @@ export default function useQuizzes() {
     useEffect(() => {
         const fetchQuizzes = async () => {
             try {
-                const res = await axios.get(import.meta.env.VITE_GET_ALL_QUIZZES);
+                const res = await axios.get(`${baseUrlAPI}/quizzes/all`);
                 const allQuizzes = res.data.quizzes.allQuizzes
                 const latestQuizzes = res.data.quizzes.latest
                 const mostLiked = res.data.quizzes.mostLiked

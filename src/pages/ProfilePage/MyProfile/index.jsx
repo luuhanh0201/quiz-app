@@ -8,14 +8,15 @@ import { Link, NavLink, useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "@/contexts/authContext";
+import { baseUrlAPI } from "@/assets/db";
 const cx = classNames.bind(styles);
 function MyProfile() {
-    const HOST = import.meta.env.VITE_HOST
+    const HOST = baseUrlAPI
     const profile = useOutletContext()
     const [quizzes, setQuizzes] = useState([])
     const { token } = useAuth()
     useEffect(() => {
-        axios.get(import.meta.env.VITE_GET_QUIZZES, {
+        axios.get(`${baseUrlAPI}/quizzes`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -27,7 +28,7 @@ function MyProfile() {
                 console.log("Lỗi khi gọi get quizzes:", err.response);
             });
     }, [])
-    console.log(quizzes)
+
     const ItemQuizzes = quizzes.map((item) => {
         return (
             <div key={item.id} className={cx("quiz-item")}>

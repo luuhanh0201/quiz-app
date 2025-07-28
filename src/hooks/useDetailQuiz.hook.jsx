@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { baseUrlAPI } from "@/assets/db";
 
 
 export default function useDetailQuiz(quizId) {
@@ -13,7 +14,7 @@ export default function useDetailQuiz(quizId) {
         const fetchQuiz = async () => {
             try {
                 const res = await axios.get(
-                    `${import.meta.env.VITE_GET_DETAIL_QUIZ}${quizId}`
+                    `${baseUrlAPI}/quizzes/detail-quiz/${quizId}`
                 );
                 setQuiz(res.data.quiz || res.data.data);
               

@@ -11,6 +11,7 @@ import axios from "axios";
 import { alertSuccess } from "@/components/NotificationModal";
 import { Link, useNavigate } from "react-router-dom";
 import { schemaSignUp } from "@/validates";
+import { baseUrlAPI } from "@/assets/db";
 
 const cx = classNames.bind(styles);
 
@@ -48,7 +49,7 @@ function SignUp() {
         setErrors({});
         try {
 
-            const res = await axios.post(import.meta.env.VITE_SIGNUP, {
+            const res = await axios.post(`${baseUrlAPI}/auths/signup`, {
                 ...formData,
                 avatar: null,
             });

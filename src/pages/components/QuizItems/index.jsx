@@ -5,19 +5,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faHeart, faQuestion, faThumbsUp, faUser } from "@fortawesome/free-solid-svg-icons";
 import Image from "@/components/Image";
 import { Link } from "react-router-dom";
+import { baseUrlAPI } from "@/assets/db";
 const cx = classNames.bind(styles)
 function QuizItem({ id, title, quizCount, createdAt, coverImage, username, likes }) {
-    const HOST = import.meta.env.VITE_HOST;
-    const cover = coverImage?.startsWith("http")
-        ? coverImage
-        : coverImage
-            ? `${coverImage}`
-            : images.noAvatar;
 
     return (
-        <Link to={"/quizzes/detail-quiz/"+id} key={id} className={cx("quiz-item")}>
+        <Link to={"/quizzes/detail-quiz/" + id} key={id} className={cx("quiz-item")}>
             <div className={cx("quiz-image-container")}>
-                <Image className={cx("quiz-image")} src={`${HOST}${cover}`} alt={title} />
+                <Image className={cx("quiz-image")} src={`${baseUrlAPI}${coverImage}`} alt={title} />
                 <div className={cx("quiz-overlay")}>
                     <span className={cx("question-count")}>
                         <FontAwesomeIcon icon={faQuestion} />
