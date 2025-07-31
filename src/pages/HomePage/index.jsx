@@ -64,7 +64,7 @@ function HomePage() {
                 <div className={cx("grid-5")}>
                     {
                         latest.map((quiz, index) => {
-                            
+
                             return (<div key={index}>
                                 <QuizItem id={quiz.id} title={quiz.title} quizCount={quiz.quizCount} createdAt={quiz.createdAt} coverImage={quiz.coverImage} username={quiz.username} likes={quiz.likes} />
                             </div>)
@@ -78,7 +78,7 @@ function HomePage() {
                 <div className={cx("grid-5")}>
                     {
                         mostLiked.map((quiz, index) => {
-                        
+
                             return (<div key={index}>
                                 <QuizItem id={quiz.id} title={quiz.title} quizCount={quiz.quizCount} createdAt={quiz.createdAt} coverImage={quiz.coverImage} username={quiz.username} likes={quiz.likes} />
                             </div>)

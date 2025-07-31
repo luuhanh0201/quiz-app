@@ -59,7 +59,7 @@ function SignIn() {
             signin(user, token)
 
         } catch (error) {
-            console.log(error)
+
             setErrors({
                 username: error.response.data.message,
             });

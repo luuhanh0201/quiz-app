@@ -10,6 +10,10 @@ import SignUp from "@/pages/SignUp";
 import CreateQuiz from "@/pages/CreateQuiz";
 import DetailQuiz from "@/pages/DetailQuizPage";
 
+function NotFound() {
+    return <h1>404 Not Found</h1>
+}
+
 export const publicRoutes = [
     {
         path: "/",
@@ -21,8 +25,9 @@ export const publicRoutes = [
         component: CreateQuiz,
         layout: LayoutCreateQuizzes,
         useRefLayout: true,
-        isCheckAuth: true
+        isCheckAuth: true,
     },
+
     {
         path: "/quizzes/detail-quiz/:id",
         component: DetailQuiz,
@@ -38,6 +43,7 @@ export const publicRoutes = [
         component: SignUp,
         layout: LayoutAuth,
     },
+
     {
         path: "/profile/me",
         component: ProfilePage,
@@ -53,4 +59,9 @@ export const publicRoutes = [
             },
         ],
     },
+    {
+        path: "/*",
+        component: NotFound,
+        layout: LayoutUsers,
+    }
 ];

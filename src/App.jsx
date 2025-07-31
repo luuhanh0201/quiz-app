@@ -11,13 +11,13 @@ function App() {
                     {publicRoutes.map((route, index) => {
                         const Page = route.component;
                         let Layout = LayoutUsers;
-    
+
                         if (route.layout === null) {
                             Layout = ({ children }) => <>{children}</>;
                         } else if (route.layout) {
                             Layout = route.layout;
                         }
-    
+
                         return (
                             <Route
                                 key={index}

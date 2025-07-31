@@ -10,7 +10,7 @@ import images from "@/assets/images";
 import axios from "axios";
 import { alertSuccess } from "@/components/NotificationModal";
 import { useAuth } from "@/contexts/authContext";
-import { baseUrlAPI } from "@/assets/db";
+import { baseHost, baseUrlAPI } from "@/assets/db";
 
 const cx = classNames.bind(styles);
 
@@ -47,7 +47,7 @@ function SettingProfile() {
                 }
             });
             const { newProfile } = res.data;
-            const fullAvatarUrl = `${baseUrlAPI}${newProfile.avatar}`;
+            const fullAvatarUrl = `${baseHost}${newProfile.avatar}`;
             setUser((prev) => ({
                 ...prev,
                 username: newProfile.username,

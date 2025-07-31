@@ -12,9 +12,7 @@ const cx = classNames.bind(styles);
 
 function ProfilePage() {
     const { token, user } = useAuth()
-    console.log(`${baseUrlAPI}/users/profile-user`)
     if (!token) return <p>Loading...</p>;
-    console.log(user)
     return (
         <div className={cx("wrapper")}>
             <div className={cx("header-profile")}>

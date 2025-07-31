@@ -20,3 +20,5 @@ quiz-app/
 ├── index.html             # Entry HTML (dùng trong Vite)
 ├── package.json
 └── vite.config.js / cra config
+
+

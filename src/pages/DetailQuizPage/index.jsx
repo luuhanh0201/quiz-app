@@ -3,25 +3,23 @@ import classNames from "classnames/bind";
 import styles from "./DetailQuizPage.module.scss";
 import Button from '@/components/Form/Button';
 import { useAuth } from '@/contexts/authContext';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Image from '@/components/Image';
 import useDetailQuiz from '@/hooks/useDetailQuiz.hook';
-import { baseUrlAPI } from '@/assets/db';
+import { baseHost, baseUrlAPI } from '@/assets/db';
 
 const cx = classNames.bind(styles);
 
 function DetailQuiz() {
     const [isLiked, setIsLiked] = useState(false);
     const [currentLikes, setCurrentLikes] = useState(2);
-    const { id } = useParams();
     const { user } = useAuth()
+    const { id } = useParams();
+    const navigate = useNavigate();
     const { quiz, loading, error } = useDetailQuiz(id);
+    if (!quiz) return <div>No quiz found</div>;
     if (loading) return <div>Loading quiz...</div>;
     if (error) return <div>Error: {error.message}</div>;
-    if (!quiz) return <div>No quiz found</div>;
-
-    console.log("Quiz id: ", quiz.userId)
-    console.log("user id: " + user.userId)
     const handleLike = () => {
         setIsLiked(!isLiked);
         setCurrentLikes(prev => isLiked ? prev - 1 : prev + 1);
@@ -32,7 +30,7 @@ function DetailQuiz() {
             {/* Quiz Image */}
             <div className={cx("quiz-image-section")}>
                 <Image
-                    src={baseUrlAPI + quiz.coverImage}
+                    src={baseHost + quiz.coverImage}
                     className={cx("quiz-cover-image")}
                 />
                 <div className={cx("image-overlay")}>
@@ -79,7 +77,7 @@ function DetailQuiz() {
                         <span className={cx("icon")}>▶️</span>
                         Play Now
                     </Button>
-                    {quiz.userId === user.userId && (<Button className={cx("btn-action")}>
+                    {quiz.userId === user.userId && (<Button className={cx("btn-action")} onClick={() => navigate(`/quizzes/update-quiz/${id}`)}>
                         <span className={cx("icon")}>✏️</span>
                         Edit
                     </Button>)}

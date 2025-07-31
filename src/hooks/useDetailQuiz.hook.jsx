@@ -17,7 +17,7 @@ export default function useDetailQuiz(quizId) {
                     `${baseUrlAPI}/quizzes/detail-quiz/${quizId}`
                 );
                 setQuiz(res.data.quiz || res.data.data);
-              
+
             } catch (err) {
                 setError(err);
             } finally {

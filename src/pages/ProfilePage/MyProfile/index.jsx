@@ -25,7 +25,7 @@ function MyProfile() {
                 setQuizzes(res.data.data)
             })
             .catch(err => {
-                console.log("Lỗi khi gọi get quizzes:", err.response);
+                console.log("Error:", err.response);
             });
     }, [])
 
